@@ -5,7 +5,7 @@ import subprocess
 import re
 
 from sqlalchemy.sql import text, select
-from db.database import db_connector, alive
+from db.database import db_connector, scan
 
 class Scan:
     def __init__(
