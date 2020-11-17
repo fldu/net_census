@@ -1,0 +1,41 @@
+version: "3.0"
+
+services: 
+
+  api:
+    build:
+      context: ./api
+    image: scanner/api
+    links: 
+      - broker
+      - db
+      - logging
+    ports:
+      - 8000:8000/tcp
+
+  worker:
+    build:
+      context: ./api
+      dockerfile: Dockerfile_worker
+    image: scanner/worker
+    links:
+      - broker
+      - db
+      - logging
+    deploy:
+      replicas: 4
+
+  broker:
+    image: rabbitmq
+
+  logging:
+    image: rabbitmq
+
+  db:
+    image: mariadb
+    env_file: .env
+    volumes:
+      - db:/var/lib/mysql
+
+volumes: 
+  db:
