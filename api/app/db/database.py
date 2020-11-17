@@ -20,3 +20,11 @@ alive = Table(
     Column("IP", String),
     Column("Timestamp", String)
 )
+
+meta_scan = MetaData()
+scan = Table(
+    "scan", meta_scan,
+    Column("IP", String),
+    Column("Port", String),
+    Column("Timestamp", String)
+)
