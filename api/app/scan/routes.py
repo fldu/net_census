@@ -2,16 +2,16 @@ from fastapi import APIRouter, HTTPException, Query
 from typing import Optional
 from pydantic import BaseModel
 from .scan import Scan
-from .tasks import *
+from .tasks import task_scan
 
 scan = APIRouter()
 
 class IpRangeScan(BaseModel):
-    ip_range: str = Query(None, regex = "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/((?:[0-9])|(?:[1-2][0-9])|(?:3[0-2]))")
+    ip_range: str = Query(None, regex = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/((?:[0-9])|(?:[1-2][0-9])|(?:3[0-2]))$")
     rate: str = Query(None, regex = "\d{1,4}")
 
 class IpScan(BaseModel):
-    ip: str = Query(None, regex = "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
+    ip: str = Query(None, regex = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$")
 
 @scan.post("/", status_code=200)
 async def scan_post(input: IpRangeScan):

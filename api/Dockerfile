@@ -2,7 +2,7 @@ FROM fedora:33
 LABEL Florian Dubourg <fldu@fldu.fr>
 
 RUN dnf update -y && \
-	dnf install -y python3-celery findutils fping masscan python-devel python-pip libpcap libpcap-devel which nmap python python3-uvicorn && \
+	dnf install -y python3-celery findutils fping zmap python-devel python-pip libpcap libpcap-devel python python3-uvicorn && \
 	dnf clean all
 
 RUN mkdir /app

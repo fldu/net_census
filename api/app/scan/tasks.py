@@ -1,5 +1,5 @@
 from celery_app import app
-from .scan import *
+from .scan import Scan
 
 @app.task()
 def task_scan(ip_range, rate):

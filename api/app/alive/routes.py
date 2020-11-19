@@ -2,15 +2,15 @@ from fastapi import APIRouter, HTTPException, Query
 from typing import Optional
 from pydantic import BaseModel
 from .alive import Alive
-from .tasks import *
+from .tasks import task_alive_ping
 
 alive = APIRouter()
 
 class IpRange(BaseModel):
-    ip_range: str = Query(None, regex = "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/((?:[0-9])|(?:[1-2][0-9])|(?:3[0-2]))")
+    ip_range: str = Query(None, regex = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/((?:[0-9])|(?:[1-2][0-9])|(?:3[0-2]))$")
 
 class Ip(BaseModel):
-    ip: str = Query(None, regex = "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
+    ip: str = Query(None, regex = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$")
 
 @alive.post("/ping", status_code=200)
 async def alive_ping_post(input: IpRange):
