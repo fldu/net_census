@@ -1,10 +1,11 @@
 from celery_app import app
-from .scan import *
+from .scan import Scan
 
 @app.task()
-def task_scan(ip_range, rate):
+def task_scan(ip_range, rate, port):
     r = Scan(
         ip_range = ip_range,
-        rate = rate
+        rate = rate,
+        port = port
     )
     r.scan()

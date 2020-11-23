@@ -1,5 +1,5 @@
 from celery_app import app
-from .alive import *
+from .alive import Alive
 
 @app.task()
 def task_alive_ping(ip_range):

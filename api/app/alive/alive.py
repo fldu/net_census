@@ -43,8 +43,8 @@ class Alive():
             logging.info(f"alive:retrieve info for {self.ip}")
             data_from_sql = db_connector.execute(select([alive]).where(alive.columns.IP == self.ip)).fetchall()
             timestamp = data_from_sql[0][1]
-            return timestamp
+            return {self.ip: timestamp}
         except Exception as e:
             logging.error(f"alive:retrieve {self.ip} stopped with error: {e}")
-            return False
+            return {self.ip: 'error'}
 

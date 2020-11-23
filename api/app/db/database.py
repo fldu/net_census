@@ -20,3 +20,17 @@ alive = Table(
     Column("IP", String),
     Column("Timestamp", String)
 )
+
+meta_scan = MetaData()
+scan = Table(
+    "scan", meta_scan,
+    Column("IP", String),
+    Column("Port", String),
+    Column("Timestamp", String),
+    Column("DNS", String),
+    Column("HTTP service", String),
+    Column("HTTP status code", String),
+    Column("SSL present?", String),
+    Column("SSL expiration date", String),
+    Column("SSL valid?", String)
+)
