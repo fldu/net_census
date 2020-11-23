@@ -12,12 +12,12 @@ class IpRangeScan(BaseModel):
     port: str = Query(None, regex = "^()([1-9]|[1-5]?[0-9]{2,4}|6[1-4][0-9]{3}|65[1-4][0-9]{2}|655[1-2][0-9]|6553[1-5])$")
 
 class IpScan(BaseModel):
-    ip: str = Query(None, regex = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$")
-    port: str = Query(None, regex = "^()([1-9]|[1-5]?[0-9]{2,4}|6[1-4][0-9]{3}|65[1-4][0-9]{2}|655[1-2][0-9]|6553[1-5])$")
+    ip: Optional[str] = Query(None, regex = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$")
+    port: Optional[str] = Query(None, regex = "^()([1-9]|[1-5]?[0-9]{2,4}|6[1-4][0-9]{3}|65[1-4][0-9]{2}|655[1-2][0-9]|6553[1-5])$")
 
 @scan.post("/", status_code=200)
 async def scan_post(input: IpRangeScan):
-    r = task_scan.delay(input.ip_range, input.rate)
+    r = task_scan.delay(input.ip_range, input.rate, input.port)
     return {"id": r.id, 'status': 'queued'}
 
 @scan.get("/", status_code=200)
