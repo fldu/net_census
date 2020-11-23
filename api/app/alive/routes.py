@@ -22,8 +22,5 @@ async def alive_get(input: Ip):
     r = Alive(
         ip = input.ip
     )
-    r_value_timestamp = r.retrieve_ip()
-    if r_value_timestamp is False:
-        return {input.ip: "error"}
-    else:
-        return {input.ip: r_value_timestamp}
+    r_value = r.retrieve_ip()
+    return r_value
